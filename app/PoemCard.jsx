@@ -6,6 +6,8 @@ import MyButton from './components/MyButton.jsx';
 import MyTitle from './components/MyTitle.jsx';
 import Typography from 'material-ui/Typography';
 import VoteButton from './VoteButton.jsx';
+import Hidden from 'material-ui/Hidden';
+import withWidth from 'material-ui/utils/withWidth';
 import { configureUrlQuery } from 'react-url-query';
 import createHistory from 'history/createBrowserHistory';
 import capitalizeFirstLetter from './helpers.js';
@@ -49,16 +51,37 @@ class PoemCard extends React.Component {
         var c = capitalizeFirstLetter(this.state.c);
         var b = capitalizeFirstLetter(this.state.b);
         return (
-            <Card>
-                <CardContent>
-                  <MyTitle>
-                    all {c} are {b}
-                  </MyTitle>
-                  <Typography color="textSecondary">
-                    {this.state.source}
-                  </Typography>
-                </CardContent>
-                <CardActions>
+            <div>
+                <Card>
+                    <CardContent>
+                      <MyTitle>
+                        all {c} are {b}
+                      </MyTitle>
+                      <Typography color="textSecondary">
+                        {this.state.source}
+                      </Typography>
+                    </CardContent>
+                    <Hidden xsDown>
+                        <CardActions>
+                            <MyButton
+                                onClick={() => this.getPoem()}
+                                color="primary"
+                                variant="raised"
+                                icon="shuffle"
+                                text="Random"
+                            />
+                            <VoteButton
+                                color="secondary"
+                                variant="raised"
+                                c={this.state.c} b={this.state.b} downvote={false}/>
+                            <VoteButton
+                                variant="raised"
+                                color="secondary"
+                                c={this.state.c} b={this.state.b} downvote={true}/>
+                        </CardActions>
+                    </Hidden>
+                </Card>
+                <Hidden smUp>
                     <MyButton
                         onClick={() => this.getPoem()}
                         color="primary"
@@ -69,16 +92,18 @@ class PoemCard extends React.Component {
                     <VoteButton
                         color="secondary"
                         variant="raised"
-                        c={this.state.c} b={this.state.b} downvote={false}/>
+                        c={this.state.c} b={this.state.b} downvote={false}
+                    />
                     <VoteButton
                         variant="raised"
                         color="secondary"
-                        c={this.state.c} b={this.state.b} downvote={true}/>
-                </CardActions>
-            </Card>
+                        c={this.state.c} b={this.state.b} downvote={true}
+                    />
+                </Hidden>
+            </div>
         );
     }
 }
 
 
-export default addUrlProps({ urlPropsQueryConfig })(PoemCard);
+export default addUrlProps({ urlPropsQueryConfig })(withWidth()(PoemCard));
