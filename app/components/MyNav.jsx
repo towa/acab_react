@@ -38,7 +38,7 @@ class MyNav extends React.Component {
             <AppBar position="static">
                 <Toolbar>
                     {backBtn}
-                    <Typography type="title" color="inherit" style={{flex:1}}>
+                    <Typography variant="title" color="inherit" style={{flex:1}}>
                         {this.props.title}
                     </Typography>
                     {this.props.children}

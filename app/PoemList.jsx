@@ -4,6 +4,7 @@ import { withRouter } from 'react-router-dom';
 import List, { ListItem, ListItemIcon, ListItemText } from 'material-ui/List';
 import capitalizeFirstLetter from './helpers.js';
 import VoteButton from './VoteButton.jsx';
+import MyPagination from './components/MyPagination.jsx';
 
 class PoemListItem extends React.Component {
     showPoem(){
@@ -30,12 +31,13 @@ class PoemList extends React.Component {
             acabs : [],
         };  
     }
-    getAcabs() {
-        axios.get('http://localhost:5000/list')
+    getAcabs(page = 1) {
+        axios.get('http://localhost:5000/list/' + page)
             .then((response) => {
                 if (response.status === 200) {
                     this.setState({
-                        acabs       : response.data.lst
+                        acabs       : response.data.items,
+                        pagination  : response.data.pagination,
                     });
                 }
             });
@@ -44,14 +46,27 @@ class PoemList extends React.Component {
         this.getAcabs();
     }
     render(){
+        var paginationButtons = this.state.pagination
+            ? <MyPagination color="primary"
+                onPageChange={this.getAcabs.bind(this)}
+                pagination={this.state.pagination}/>
+            : <div/>
         return(
-            <List component="nav">
-                {this.state.acabs.map((acab) => {
-                    return (
-                        <RoutingPoemListItem key={acab.c + acab.b} c={acab.c} b={acab.b} votes={acab.votes} />
-                    );
-                })}
-            </List>
+            <div>
+                <List component="nav">
+                    {this.state.acabs.map((acab) => {
+                        return (
+                            <RoutingPoemListItem
+                                key={acab.c + acab.b}
+                                c={acab.c}
+                                b={acab.b}
+                                votes={acab.vote}
+                            />
+                        );
+                    })}
+                </List>
+                {paginationButtons}
+            </div>
         );
     }
 }

@@ -26,13 +26,18 @@ class VoteButton extends React.Component {
             b           : this.props.b,
             downvote    : this.props.downvote,
         }).then((response) => {
-            if (response.data.error !== undefined) {
-                this.setState({ open : true, message : response.data.error });
-            }
             if (response.data.vote !== undefined) {
                 var msg = "you voted for: all " + response.data.vote.c
                         + " are " + response.data.vote.b;
                 this.setState({ open : true, message : msg });
+            }
+            if (this.props.onVote) {
+                this.props.onVote()
+            }
+        }).catch((error) => {
+            this.setState({ open : true, message : "Wait a while before you vote for the same thing again"});
+            if (this.props.onVote) {
+                this.props.onVote()
             }
         });
             

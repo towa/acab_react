@@ -73,11 +73,15 @@ class PoemCard extends React.Component {
                             <VoteButton
                                 color="secondary"
                                 variant="raised"
-                                c={this.state.c} b={this.state.b} downvote={false}/>
+                                onVote={() => this.getPoem()}
+                                c={this.state.c} b={this.state.b} downvote={false}
+                            />
                             <VoteButton
                                 variant="raised"
                                 color="secondary"
-                                c={this.state.c} b={this.state.b} downvote={true}/>
+                                onVote={() => this.getPoem()}
+                                c={this.state.c} b={this.state.b} downvote={true}
+                            />
                         </CardActions>
                     </Hidden>
                 </Card>
@@ -93,11 +97,13 @@ class PoemCard extends React.Component {
                         color="secondary"
                         variant="raised"
                         c={this.state.c} b={this.state.b} downvote={false}
+                        onVote={() => this.getPoem()}
                     />
                     <VoteButton
                         variant="raised"
                         color="secondary"
                         c={this.state.c} b={this.state.b} downvote={true}
+                        onVote={() => this.getPoem()}
                     />
                 </Hidden>
             </div>
