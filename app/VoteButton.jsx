@@ -21,7 +21,7 @@ class VoteButton extends React.Component {
     };
     
     votePoem() {
-        axios.post("http://localhost:5000/vote",{
+        axios.post("api/vote",{
             c           : this.props.c,
             b           : this.props.b,
             downvote    : this.props.downvote,

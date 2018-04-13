@@ -29,7 +29,7 @@ class PoemCard extends React.Component {
         };  
     }
     getPoem() {
-        axios.get('http://localhost:5000/random')
+        axios.get('api/random')
             .then((response) => {
                 if (response.status === 200) {
                     this.setState({

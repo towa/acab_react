@@ -32,7 +32,7 @@ class PoemList extends React.Component {
         };  
     }
     getAcabs(page = 1) {
-        axios.get('http://localhost:5000/list/' + page)
+        axios.get('api/list/' + page)
             .then((response) => {
                 if (response.status === 200) {
                     this.setState({
